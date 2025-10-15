@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MAIL SUPPLY </title>
+    <title>MAIL SHOP</title>
     
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
@@ -87,7 +87,16 @@
         .center-home-link { position: relative; transform: translateY(-20px) scale(1.1); background: rgba(0, 123, 255, 0.2); border: 1px solid rgba(0, 123, 255, 0.5); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-radius: 50%; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(0, 123, 255, 0.4); transition: all 0.3s ease; color: #ffffff; }
         .center-home-link:hover { transform: translateY(-20px) scale(1.15); }
         .center-home-link .icon { width: 32px; height: 32px; color: #fff; }
-        .header { border-bottom: 1px solid #e0e0e0; background-color: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+        .header { 
+            border-bottom: 1px solid #e0e0e0; 
+            background: linear-gradient(to right, #ffffff, #f9f9f9);
+            backdrop-filter: blur(10px); 
+            -webkit-backdrop-filter: blur(10px);
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         /* Banner & Marquee */
@@ -229,6 +238,23 @@
             padding: 0 4px;
         }
 
+        /* NEW: Notification Badge */
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: #ef4444;
+            color: white;
+            border-radius: 9999px;
+            width: 20px;
+            height: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid white;
+        }
     </style>
 </head>
 <body class="max-w-md mx-auto">
@@ -238,18 +264,29 @@
             <div class="logo-container">
                 <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-[#007bff] mx-auto"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
             </div>
-            <h1 class="text-accent-gradient loader-text mt-4">MAIL SUPPLY </h1>
+            <h1 class="text-accent-gradient loader-text mt-4">MAIL SHOP</h1>
         </div>
         <div id="loader-reviews">"খুবই বিশ্বস্ত একটি সাইট।" - মোঃ রায়হান</div>
     </div>
 
     <div id="app-container" class="min-h-screen flex-col main-page">
-        <header class="header flex items-center justify-between p-4 sticky top-0 z-10">
-            <div class="flex items-center space-x-2">
-                <h1 class="text-xl font-bold text-accent-gradient">MAIL SUPPLY </h1>
-                <button id="header-deposit-btn" class="btn-gradient px-3 py-1 rounded-full text-sm font-bold">Deposit Now</button>
+        <header class="header flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-blue-500 to-purple-500 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold text-accent-gradient">MAIL SHOP</h1>
+                    <p id="header-balance-display" class="font-semibold text-gray-700 text-sm">৳0.00</p>
+                </div>
             </div>
-            <div id="header-balance-display" class="font-bold text-[#007bff]">৳0.00</div>
+            <div class="flex items-center space-x-4">
+                <button id="header-deposit-btn" class="btn-gradient px-4 py-2 rounded-full text-sm font-bold shadow-lg">Deposit</button>
+                <button id="notification-btn" class="relative p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors">
+                    <i data-lucide="bell" class="w-5 h-5 text-gray-700"></i>
+                    <span id="notification-badge" class="notification-badge hidden">0</span>
+                </button>
+            </div>
         </header>
 
         <main class="flex-grow pb-20">
@@ -263,14 +300,6 @@
                         </div>
                         <div class="dots" id="dots"></div>
                     </div>
-                </div>
-
-                <div class="marquee">
-                    <p class="marquee-content">
-💌 MAIL SUPPLY -এ আপনাকে স্বাগতম!
-💬 যেকোনো প্রয়োজনে যোগাযোগ করুন আমাদের সাপোর্ট টিমের সাথে।
-💎 MAIL SHOP — বিশ্বাস, গুণমান ও সাপোর্টের প্রতীক!                        
-                    </p>
                 </div>
 
                 <div class="p-4 space-y-6">
@@ -306,10 +335,10 @@
                         </div>
                         <p class="text-lg font-semibold text-gray-700 mb-4 text-center p-3 rounded-lg border border-dashed border-blue-500/50 bg-blue-500/10">নিচের নাম্বারে <span class="text-blue-600 animate-pulse">সেন্ডমানি</span> করুন</p>
                         <div class="grid grid-cols-2 gap-3 mb-5">
-                            <div class="bg-gray-100 p-3 rounded-lg text-center"><img src="https://i.postimg.cc/Jh9s6jWw/20250922-113350.png" alt="Nagad" class="w-10 h-10 rounded-full mx-auto mb-2"><p class="font-bold text-md">নগদ</p><p class="text-gray-600 font-mono tracking-wider text-sm my-1">01312632209</p><button onclick="copyToClipboard('01312632209', this)" class="w-full text-xs p-1 mt-1 bg-gray-200 rounded hover:bg-gray-300 transition-colors flex items-center justify-center gap-1"><i data-lucide="copy" class="w-3 h-3"></i><span>Copy</span></button></div>
-                            <div class="bg-gray-100 p-3 rounded-lg text-center"><img src="https://i.postimg.cc/tCwGVkdH/20250922-113514.png" alt="bKash" class="w-10 h-10 rounded-full mx-auto mb-2"><p class="font-bold text-md">বিকাশ</p><p class="text-gray-600 font-mono tracking-wider text-sm my-1">01312632209</p><button onclick="copyToClipboard('01312632209', this)" class="w-full text-xs p-1 mt-1 bg-gray-200 rounded hover:bg-gray-300 transition-colors flex items-center justify-center gap-1"><i data-lucide="copy" class="w-3 h-3"></i><span>Copy</span></button></div>
-                            <div class="bg-gray-100 p-3 rounded-lg text-center"><img src="https://i.postimg.cc/htsw10Tj/20250922-113924.png" alt="Rocket" class="w-10 h-10 rounded-full mx-auto mb-2"><p class="font-bold text-md">রকেট</p><p class="text-gray-600 font-mono tracking-wider text-sm my-1">01312632209</p><button onclick="copyToClipboard('01312632209', this)" class="w-full text-xs p-1 mt-1 bg-gray-200 rounded hover:bg-gray-300 transition-colors flex items-center justify-center gap-1"><i data-lucide="copy" class="w-3 h-3"></i><span>Copy</span></button></div>
-                            <div class="bg-gray-100 p-3 rounded-lg text-center"><img src="https://i.postimg.cc/L6LFLfxY/20250922-113752.png" alt="Binance Pay" class="w-10 h-10 rounded-full mx-auto mb-2"><p class="font-bold text-md">Binance Pay</p><p class="text-gray-600 font-mono tracking-wider text-sm my-1">1105989483</p><button onclick="copyToClipboard('1105989483', this)" class="w-full text-xs p-1 mt-1 bg-gray-200 rounded hover:bg-gray-300 transition-colors flex items-center justify-center gap-1"><i data-lucide="copy" class="w-3 h-3"></i><span>Copy ID</span></button></div>
+                            <div class="bg-gray-100 p-3 rounded-lg text-center"><img src="https://i.postimg.cc/Jh9s6jWw/20250922-113350.png" alt="Nagad" class="w-10 h-10 rounded-full mx-auto mb-2"><p class="font-bold text-md">নগদ</p><p class="text-gray-600 font-mono tracking-wider text-sm my-1">01864260513</p><button onclick="copyToClipboard('01864260513', this)" class="w-full text-xs p-1 mt-1 bg-gray-200 rounded hover:bg-gray-300 transition-colors flex items-center justify-center gap-1"><i data-lucide="copy" class="w-3 h-3"></i><span>Copy</span></button></div>
+                            <div class="bg-gray-100 p-3 rounded-lg text-center"><img src="https://i.postimg.cc/tCwGVkdH/20250922-113514.png" alt="bKash" class="w-10 h-10 rounded-full mx-auto mb-2"><p class="font-bold text-md">বিকাশ</p><p class="text-gray-600 font-mono tracking-wider text-sm my-1">01827750260</p><button onclick="copyToClipboard('01827750260', this)" class="w-full text-xs p-1 mt-1 bg-gray-200 rounded hover:bg-gray-300 transition-colors flex items-center justify-center gap-1"><i data-lucide="copy" class="w-3 h-3"></i><span>Copy</span></button></div>
+                            <div class="bg-gray-100 p-3 rounded-lg text-center"><img src="https://i.postimg.cc/htsw10Tj/20250922-113924.png" alt="Rocket" class="w-10 h-10 rounded-full mx-auto mb-2"><p class="font-bold text-md">রকেট</p><p class="text-gray-600 font-mono tracking-wider text-sm my-1">018277502604</p><button onclick="copyToClipboard('018277502604', this)" class="w-full text-xs p-1 mt-1 bg-gray-200 rounded hover:bg-gray-300 transition-colors flex items-center justify-center gap-1"><i data-lucide="copy" class="w-3 h-3"></i><span>Copy</span></button></div>
+                            <div class="bg-gray-100 p-3 rounded-lg text-center"><img src="https://i.postimg.cc/L6LFLfxY/20250922-113752.png" alt="Binance Pay" class="w-10 h-10 rounded-full mx-auto mb-2"><p class="font-bold text-md">Binance Pay</p><p class="text-gray-600 font-mono tracking-wider text-sm my-1">1085460262</p><button onclick="copyToClipboard('1085460262', this)" class="w-full text-xs p-1 mt-1 bg-gray-200 rounded hover:bg-gray-300 transition-colors flex items-center justify-center gap-1"><i data-lucide="copy" class="w-3 h-3"></i><span>Copy ID</span></button></div>
                         </div>
                         <p class="text-sm text-gray-600 mb-4 text-center border-t border-gray-300 pt-4">টাকা পাঠানোর পর নিচের ফর্মটি পূরণ করুন:</p>
                         <div class="space-y-4">
@@ -324,19 +353,32 @@
                 <div class="mt-6"><h3 class="text-lg font-semibold mb-3">Payment History</h3><div id="payment-history-list" class="space-y-3"></div></div>
             </div>
 
-            <div id="mail-page" class="p-4 space-y-6 sub-page">
-                <h2 class="text-xl font-bold text-center text-gray-800">MAIL SHOP</h2>
-                <p class="text-gray-600 text-center mb-4">কম দামে এবং সহজে মেইল কিনুন</p>
-                <div id="mail-list" class="space-y-4"></div>
-                 <div>
-                    <div class="flex justify-between items-center mb-3 mt-6">
-                        <h3 class="text-lg font-semibold">Buy History</h3>
-                        <div class="flex items-center gap-2">
-                           <button id="copy-history-btn" class="btn-outline-accent p-2 rounded-lg text-sm flex items-center gap-1"><i data-lucide="copy" class="w-4 h-4"></i><span>Copy Now</span></button>
-                           <button id="download-history-btn" class="btn-outline-accent p-2 rounded-lg text-sm flex items-center gap-1"><i data-lucide="download" class="w-4 h-4"></i><span>Download</span></button>
+            <div id="mail-page" class="sub-page">
+                 <div class="marquee mt-4">
+                    <p class="marquee-content">
+💌 MAIL SUPPLY-এ আপনাকে স্বাগতম!
+✨ আমাদের সব সার্ভিস এখন চালু!
+📩 এখানে পাবেন ১০০% ভালো কোয়ালিটির মেইল।
+⚡ কোনো সমস্যা হলে আমরা সঙ্গে সঙ্গে সমাধান করি।
+🕐 আমরা ২৪ ঘণ্টা সার্ভিস দিয়ে থাকি।
+💬 যেকোনো প্রয়োজনে যোগাযোগ করুন আমাদের সাপোর্ট টিমের সাথে।
+💎 MAIL SHOP — বিশ্বাস, গুণমান ও সাপোর্টের প্রতীক!                        
+                    </p>
+                </div>
+                <div class="p-4 space-y-6">
+                    <h2 class="text-xl font-bold text-center text-gray-800">MAIL SHOP</h2>
+                    <p class="text-gray-600 text-center mb-4">কম দামে এবং সহজে মেইল কিনুন</p>
+                    <div id="mail-list" class="space-y-4"></div>
+                     <div>
+                        <div class="flex justify-between items-center mb-3 mt-6">
+                            <h3 class="text-lg font-semibold">Buy History</h3>
+                            <div class="flex items-center gap-2">
+                               <button id="copy-history-btn" class="btn-outline-accent p-2 rounded-lg text-sm flex items-center gap-1"><i data-lucide="copy" class="w-4 h-4"></i><span>Copy Now</span></button>
+                               <button id="download-history-btn" class="btn-outline-accent p-2 rounded-lg text-sm flex items-center gap-1"><i data-lucide="download" class="w-4 h-4"></i><span>Download</span></button>
+                            </div>
                         </div>
+                        <div id="mail-purchase-history" class="space-y-3"></div>
                     </div>
-                    <div id="mail-purchase-history" class="space-y-3"></div>
                 </div>
             </div>
 
@@ -372,7 +414,7 @@
                         <span>⚡ More Features</span>
                         <i data-lucide="arrow-right" class="w-5 h-5 text-gray-400"></i>
                     </button>
-                    <a href="https://t.me/Mail_supply_Supportbot" target="_blank" class="w-full card-bg p-4 rounded-xl flex justify-between items-center text-left text-lg font-semibold">
+                    <a href="https://t.me/earn_Supportbot" target="_blank" class="w-full card-bg p-4 rounded-xl flex justify-between items-center text-left text-lg font-semibold">
                         <span>𝑺𝒖𝒑𝒑𝒐𝒓𝒕 𝑻𝒆𝒂𝒎</span>
                         <i data-lucide="arrow-up-right" class="w-5 h-5 text-gray-600"></i>
                     </a>
@@ -543,10 +585,10 @@
         </nav>
     </div>
     
-    <a id="fab-updates-plus" href="https://t.me/SAIDULEP" target="_blank" class="fab-button fab-updates">
+    <a id="fab-updates-plus" href="https://t.me/mursed0" target="_blank" class="fab-button fab-updates">
         <i data-lucide="plus" class="w-8 h-8"></i>
     </a>
-    <a id="fab-common-telegram" href="https://t.me/Mail_supply_Supportbot" target="_blank" class="fab-button fab-telegram">
+    <a id="fab-common-telegram" href="https://t.me/earn_Supportbot" target="_blank" class="fab-button fab-telegram">
         <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.65 12c-.88-.25-.89-1.02.2-1.3l15.67-6.11c.8-.32 1.45.19 1.18 1.1l-2.53 11.64c-.23.95-1.17 1.17-1.87.73l-4.5-3.33-2.15 2.07c-.24.24-.45.46-.8.46-.42 0-.59-.16-.69-.53z"/></svg>
     </a>
     <a id="fab-features-whatsapp" href="https://wa.me/8801855879942" target="_blank" class="fab-button fab-whatsapp">
@@ -559,6 +601,16 @@
             <button id="alert-ok-btn" class="btn-gradient px-8 py-2 rounded-lg">OK</button>
         </div>
     </div>
+
+    <div id="notification-modal" class="hidden fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-[70] p-4 backdrop-blur-sm">
+        <div class="card-bg rounded-2xl p-6 w-full max-w-sm space-y-4">
+            <h3 class="text-xl font-bold text-center text-accent-gradient mb-4">Notifications</h3>
+            <div id="notification-list" class="space-y-3 max-h-80 overflow-y-auto">
+                </div>
+            <button id="notification-ok-btn" class="w-full p-3 rounded-lg btn-gradient mt-4">Close</button>
+        </div>
+    </div>
+
 
     <div id="deposit-details-modal" class="hidden fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center z-[70] p-4 backdrop-blur-sm">
         <div class="card-bg rounded-2xl p-6 w-full max-w-sm space-y-4">
@@ -637,7 +689,7 @@
 
 
     <script type="module">
-        const ADMIN_UID = "7358825471";
+        const ADMIN_UID = "7026365905";
 const firebaseConfig = {
   apiKey: "AIzaSyBvtqKHHUDtTcITQR5XgmoB1YEllGX5b8Y",
   authDomain: "fast-supply-742b0.firebaseapp.com",
@@ -649,7 +701,7 @@ const firebaseConfig = {
 };
         
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-        import { getFirestore, doc, setDoc, getDoc, collection, addDoc, serverTimestamp, query, where, getDocs, orderBy, limit, runTransaction, getCountFromServer, writeBatch, updateDoc, Timestamp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+        import { getFirestore, doc, setDoc, getDoc, collection, addDoc, serverTimestamp, query, where, getDocs, orderBy, limit, runTransaction, getCountFromServer, writeBatch, updateDoc, Timestamp, onSnapshot } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
 
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
@@ -661,7 +713,6 @@ const firebaseConfig = {
         
         const loader = document.getElementById('loader');
         
-        // UPDATED Loading HTML function
         const getLoadingHTML = () => `<div class="loading-container"><div class="premium-loader-spinner"></div></div>`;
 
         window.onload = async () => {
@@ -733,8 +784,9 @@ const firebaseConfig = {
                     createdAt: serverTimestamp(), 
                     isBlocked: false,
                     pin: null,
-                    pinFailAttempts: [], // NEW for lockout
-                    featuresLockedUntil: null // NEW for lockout
+                    pinFailAttempts: [],
+                    featuresLockedUntil: null,
+                    lastSeenNotification: null
                 };
                 await setDoc(userRef, userData);
             }
@@ -750,6 +802,7 @@ const firebaseConfig = {
                 document.getElementById('admin-nav-link').classList.remove('hidden');
             }
             updateUI();
+            listenForNotifications();
             showMainPage('app-container');
             navigateTo('home-page');
         }
@@ -772,7 +825,6 @@ const firebaseConfig = {
             document.getElementById(pageId).classList.add('active');
         }
 
-        // MODIFIED: To handle FAB visibility
         function navigateTo(pageId) {
             if (pageId !== 'mail-page' && insufficientBalanceInterval) {
                 clearInterval(insufficientBalanceInterval);
@@ -785,7 +837,6 @@ const firebaseConfig = {
                 link.classList.toggle('active', link.dataset.page === pageId);
             });
 
-            // NEW: FAB Visibility Logic
             document.getElementById('fab-updates-plus').classList.toggle('visible', pageId === 'updates-page');
             document.getElementById('fab-common-telegram').classList.toggle('visible', pageId === 'home-page' || pageId === 'mail-page');
             document.getElementById('fab-features-whatsapp').classList.toggle('visible', pageId === 'features-page');
@@ -815,6 +866,8 @@ const firebaseConfig = {
         function setupEventListeners() {
             document.querySelectorAll('.nav-link-premium[data-page]').forEach(link => link.addEventListener('click', (e) => { e.preventDefault(); navigateTo(link.dataset.page); }));
             document.getElementById('header-deposit-btn').addEventListener('click', () => navigateTo('pay-page'));
+            document.getElementById('notification-btn').addEventListener('click', showNotifications);
+            document.getElementById('notification-ok-btn').addEventListener('click', hideNotifications);
             document.getElementById('deposit-btn').addEventListener('click', handleDepositRequest);
             document.getElementById('home-deposit-btn').addEventListener('click', () => navigateTo('pay-page'));
             document.getElementById('add-mails-btn').addEventListener('click', handleAddMails);
@@ -851,6 +904,61 @@ const firebaseConfig = {
             });
         }
         
+        function listenForNotifications() {
+            const q = query(collection(db, "notifications"), orderBy("createdAt", "desc"));
+            onSnapshot(q, (snapshot) => {
+                let unreadCount = 0;
+                const lastSeen = userData.lastSeenNotification ? userData.lastSeenNotification.toMillis() : 0;
+                snapshot.forEach(doc => {
+                    const notification = doc.data();
+                    if (notification.createdAt.toMillis() > lastSeen) {
+                        unreadCount++;
+                    }
+                });
+                
+                const badge = document.getElementById('notification-badge');
+                if (unreadCount > 0) {
+                    badge.textContent = unreadCount;
+                    badge.classList.remove('hidden');
+                } else {
+                    badge.classList.add('hidden');
+                }
+            });
+        }
+        
+        async function showNotifications() {
+            const modal = document.getElementById('notification-modal');
+            const listEl = document.getElementById('notification-list');
+            listEl.innerHTML = getLoadingHTML();
+            modal.classList.remove('hidden');
+
+            const q = query(collection(db, "notifications"), orderBy("createdAt", "desc"), limit(10));
+            const snapshot = await getDocs(q);
+
+            if (snapshot.empty) {
+                listEl.innerHTML = '<p class="text-center text-gray-500">No notifications yet.</p>';
+            } else {
+                listEl.innerHTML = snapshot.docs.map(doc => {
+                    const item = doc.data();
+                    const date = item.createdAt.toDate().toLocaleString('en-GB');
+                    return `<div class="p-3 bg-gray-50 rounded-lg">
+                        <p class="font-bold text-gray-800">${item.title}</p>
+                        <p class="text-sm text-gray-600">${item.message}</p>
+                        <p class="text-xs text-gray-400 text-right mt-2">${date}</p>
+                    </div>`;
+                }).join('');
+            }
+        }
+        
+        async function hideNotifications() {
+            document.getElementById('notification-modal').classList.add('hidden');
+            const userRef = doc(db, "users", userData.tgChatId);
+            const newTimestamp = Timestamp.now();
+            await updateDoc(userRef, { lastSeenNotification: newTimestamp });
+            userData.lastSeenNotification = newTimestamp;
+            document.getElementById('notification-badge').classList.add('hidden');
+        }
+
         function loadProfilePage() {
             const profilePic = document.getElementById('profile-pic');
             const avatarDiv = document.getElementById('profile-initials-avatar');
@@ -969,7 +1077,8 @@ const firebaseConfig = {
                     const buyButtonDisabled = isOutOfStock || insufficientBalance ? 'disabled' : '';
                     const buyButtonClasses = isOutOfStock || insufficientBalance ? 'bg-gray-400 cursor-not-allowed' : 'btn-gradient';
                     const validityTagHtml = (mail.expirationDays !== undefined && mail.expirationDays !== null) ? `<span class="bg-green-500 text-white text-xs font-semibold px-2 py-1 rounded-full">${mail.expirationDays} h</span>` : '';
-                    const apiButtonHtml = mail.apiLink ? `<a href="${mail.apiLink}" target="_blank" class="text-blue-600 font-semibold">API</a>` : '<span class="text-gray-400 font-semibold">API</span>';
+                    
+                    const apiButtonHtml = mail.apiLink ? `<button onclick="openApiLink('${mail.apiLink}')" class="text-blue-600 font-semibold">API</button>` : '<span class="text-gray-400 font-semibold">API</span>';
 
                     mailListEl.innerHTML += `<div class="card-bg p-4 rounded-xl space-y-3"><div class="flex justify-between items-center"><div class="flex items-center gap-3"><img src="${mail.logoUrl}" class="w-8 h-8 rounded-lg object-cover" alt="${mail.type} logo"><h3 class="font-bold text-lg text-gray-800">${mail.type}</h3></div><div class="flex items-center gap-2">${validityTagHtml}<button onclick="showMailDetails('${mail.type}', '${mail.details.replace(/'/g, "\\'")}')" class="text-blue-600 text-sm font-semibold">Details</button></div></div><div class="grid grid-cols-3 text-center items-center pt-2 border-t border-gray-200"><div class="py-2">${apiButtonHtml}</div><div class="py-2"><p class="text-gray-500 text-sm">Price</p><p class="font-bold text-lg text-blue-600">৳${costInBdt.toFixed(2)}</p></div><div class="py-2"><p class="text-gray-500 text-sm">Stock</p><p class="font-bold text-lg text-green-600">${stock}</p></div></div><button class="${buyButtonClasses} w-full py-2 rounded-lg text-md" ${buyButtonDisabled} onclick="buyMail('${mail.type}', ${costInBdt}, '${mail.stockKey}')">Buy Now</button></div>`;
                 });
@@ -1144,8 +1253,7 @@ const firebaseConfig = {
                 });
                 
                 const tsvContent = [header, ...rows].join('\n');
-                await navigator.clipboard.writeText(tsvContent);
-                showAlert("📋 এখন সহজেই Google Sheet-এ পেস্ট করুন।");
+                copyToClipboard(tsvContent);
 
             } catch (error) { showAlert("ইতিহাস কপি করার সময় একটি সমস্যা হয়েছে।"); console.error(error); } 
             finally { loader.style.display = 'none'; }
@@ -1162,7 +1270,6 @@ const firebaseConfig = {
 
             loader.style.display = 'flex';
             try {
-                // MODIFIED: Transaction logic with Sale ID counter
                 const purchasedMailData = await runTransaction(db, async (transaction) => {
                     const counterRef = doc(db, "counters", "mail_purchase");
         
@@ -1307,15 +1414,53 @@ const firebaseConfig = {
         }
         
         window.copyToClipboard = function(text, element) {
-            if (!text) return;
-            navigator.clipboard.writeText(text.trim()).then(() => {
-                if(element) {
-                    const originalContent = element.innerHTML;
-                    element.innerHTML = `<i data-lucide="check" class="w-4 h-4 text-green-600"></i>`;
-                    lucide.createIcons();
-                    setTimeout(() => { element.innerHTML = originalContent; lucide.createIcons(); }, 1500);
-                } else showAlert('কপি করা হয়েছে!');
-            });
+            if (!text || typeof text !== 'string') {
+                console.warn("Copy to clipboard called with invalid text:", text);
+                return;
+            }
+
+            const textArea = document.createElement("textarea");
+            textArea.value = text.trim();
+
+            textArea.style.position = 'fixed';
+            textArea.style.top = '-9999px';
+            textArea.style.left = '-9999px';
+            
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    if (element) {
+                        const originalContent = element.innerHTML;
+                        element.innerHTML = `<i data-lucide="check" class="w-4 h-4 text-green-600"></i>`;
+                        lucide.createIcons();
+                        setTimeout(() => { element.innerHTML = originalContent; lucide.createIcons(); }, 1500);
+                    } else {
+                        showAlert('কপি করা হয়েছে!');
+                    }
+                } else {
+                    showAlert('দুঃখিত, কপি করা যায়নি।');
+                }
+            } catch (err) {
+                console.error('Fallback: Oops, unable to copy', err);
+                showAlert('দুঃখিত, কপি করতে একটি ত্রুটি হয়েছে।');
+            }
+
+            document.body.removeChild(textArea);
+        }
+        
+        window.openApiLink = function(url) {
+            if (url) {
+                try {
+                    window.Telegram.WebApp.openLink(url);
+                } catch (e) {
+                    console.error("Failed to open link via Telegram SDK:", e);
+                    window.open(url, '_blank');
+                }
+            }
         }
 
         function setupBanner() {
@@ -1351,7 +1496,6 @@ const firebaseConfig = {
                 const totalReceive = receivedSnapshot.docs.reduce((sum, doc) => sum + doc.data().amount, 0);
                 document.getElementById('total-receive-display').textContent = `৳${totalReceive.toFixed(2)}`;
 
-                // MODIFIED: Calculate Total Recharge and Send
                 const rechargeQuery = query(collection(db, "recharge_requests"), where("userId", "==", userData.tgChatId), where("status", "==", "approved"));
                 const rechargeSnapshot = await getDocs(rechargeQuery);
                 const totalRecharge = rechargeSnapshot.docs.reduce((sum, doc) => sum + doc.data().amount, 0);
@@ -1605,9 +1749,7 @@ const firebaseConfig = {
             }
         }
         
-        // MODIFIED: Added lockout check
         function handleFeaturesClick() {
-            // Check for lockout
             if (userData.featuresLockedUntil && userData.featuresLockedUntil.toDate() > new Date()) {
                 const unlockTime = userData.featuresLockedUntil.toDate().toLocaleTimeString('en-US');
                 showAlert(`⚠️ আপনি একাধিকবার ভুল পিন দেওয়ার কারণে আপনার একাউন্ট সাময়িকভাবে স্থগিত করা হয়েছে।\n🔒 ${unlockTime} পর আবার চেষ্টা করুন।\n\n💌 কোনো সমস্যা হলে Support Team 💌 এর সাথে যোগাযোগ করুন।`);
@@ -1645,13 +1787,11 @@ const firebaseConfig = {
             }
         }
 
-        // MODIFIED: Added failure tracking and lockout logic
         async function handleEnterPin() {
             const enteredPin = document.getElementById('enter-pin').value;
             const userRef = doc(db, "users", userData.tgChatId);
 
             if (enteredPin === userData.pin) {
-                // Correct PIN
                 if (userData.pinFailAttempts && userData.pinFailAttempts.length > 0) {
                     userData.pinFailAttempts = [];
                     await updateDoc(userRef, { pinFailAttempts: [] });
@@ -1659,7 +1799,6 @@ const firebaseConfig = {
                 document.getElementById('pin-enter-modal').classList.add('hidden');
                 navigateTo('features-page');
             } else {
-                // Incorrect PIN
                 const now = Timestamp.now();
                 const fiveMinutesAgo = new Date(now.toDate().getTime() - 5 * 60 * 1000);
 
